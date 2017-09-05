@@ -131,9 +131,13 @@ var VideoUI = React.createClass({
     },
     uploadImg() {
       // get image data
+      console.log('cheguei no uploadimg');
       var data = this.refs.videocanvas.upload_canvas.toDataURL('image/jpeg');
+      console.log('peguei a image do upload_canvas');
       // emit
       var rotate = this.refs.videocanvas.getVideoRotate180();
+      console.log(data);
+      console.log(rotate);
       socket.emit('upload_img', {img: data, rotate: rotate});
     },
     onResult(data) {
@@ -172,7 +176,7 @@ var VideoUI = React.createClass({
     render() {
       return (
         <div>
-          <VideoCanvas ref="videocanvas" 
+          <VideoCanvas ref="videocanvas"
            width={this.props.videoWidth}
            height={this.props.videoHeight}
            uploadWidth={this.props.uploadWidth}

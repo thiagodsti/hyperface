@@ -110,6 +110,24 @@ if __name__ == '__main__':
     drawing.draw_detection(img, detection)
     landmark_color = (0, 1, 0) if detection == 1 else (0, 0, 1)
     drawing.draw_landmark(img, landmark, visibility, landmark_color, 0.5)
+    # Descobrir as outras poses o que querem dizer em relação a cabeça.
+    # pose[0] -> cabeça virada pros lados roll (rolando)
+    # pose[1] -> cabeça virada pra cima ou baixo pitch
+    # pose[2] -> cabeça olhando pra qual lado yaw
+    limite = 0.1
+    if (pose[1]<-limite):
+        print ('Cabeça em estado para Baixo')
+    elif(pose[1]>limite):
+        print('Cabeça em estado para Cima');
+    elif(pose[1]>=-limite and pose[2]<=limite):
+        print('Cabeça em estado Reto');
+    if (pose[2]<-limite):
+        print ('Olhando para a esquerda')
+    elif (pose[2]>limite):
+        print('Olhando para a direita')
+    elif (pose[2]>=-limite and pose[2]<=limite):
+        print('Olhando para frente')
+    print(pose);
     drawing.draw_pose(img, pose)
     drawing.draw_gender(img, gender)
 

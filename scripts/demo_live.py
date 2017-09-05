@@ -48,6 +48,7 @@ if __name__ == '__main__':
 
     # Main loop
     logger.info('Start main loop')
+    logger.info('Depois do star main loop');
     while True:
         try:
             # Wait for image
@@ -60,7 +61,9 @@ if __name__ == '__main__':
             landmarks, visibilities, poses, genders, rects = hyperface(img)
 
             # Draw results
+            logger.info('Estou aqui');
             for i in six.moves.xrange(len(landmarks)):
+                logger.info('Dentro do for');
                 landmark = landmarks[i]
                 visibility = visibilities[i]
                 pose = poses[i]
@@ -80,4 +83,5 @@ if __name__ == '__main__':
             response_queue.put({'img': img}, timeout=1.0)
 
         except:
+            logger.info('Cai na excecao')
             pass
