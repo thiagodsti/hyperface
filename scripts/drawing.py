@@ -71,9 +71,9 @@ def draw_detection(img, detection, size=15):
     # Upper left
     pt = (size + 5, size + 5)
     if detection:
-        _draw_circle(img, pt, (0, 0.7, 0), size, 5)
+        _draw_circle(img, pt, (0, 200, 0), size, 5)
     else:
-        _draw_cross(img, pt, (0, 0, 0.7), size, 5)
+        _draw_cross(img, pt, (0, 0, 200), size, 5)
 
 
 def draw_landmark(img, landmark, visibility, color, line_color_scale,
@@ -142,18 +142,17 @@ def draw_pose(img, pose, size=30, idx=0):
 
     # Lower left
     org_pt = ((size + 5) * (2 * idx + 1), img.shape[0] - size - 5)
-    _draw_line(img, org_pt, org_pt + zvec * size, (1, 0, 0), 3)
-    _draw_line(img, org_pt, org_pt + yvec * size, (0, 1, 0), 3)
-    _draw_line(img, org_pt, org_pt + xvec * size, (0, 0, 1), 3)
-
+    _draw_line(img, org_pt, org_pt + zvec * size, (255, 0, 0), 3)
+    _draw_line(img, org_pt, org_pt + yvec * size, (0, 255, 0), 3)
+    _draw_line(img, org_pt, org_pt + xvec * size, (0, 0, 255), 3)
 
 def draw_gender(img, gender, size=7, idx=0):
     # Upper right
     pt = (img.shape[1] - (size + 5) * (2 * idx + 1), size + 5)
     if gender == 0:
-        _draw_circle(img, pt, (1.0, 0.3, 0.3), size, -1)  # male
+        _draw_circle(img, pt, (255, 0, 0), size, -1)  # male
     elif gender == 1:
-        _draw_circle(img, pt, (0.3, 0.3, 1.0), size, -1)  # female
+        _draw_circle(img, pt, (0, 0, 255), size, -1)  # female
 
 
 def draw_gender_rect(img, gender, rect):

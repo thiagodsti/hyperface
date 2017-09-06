@@ -26,18 +26,31 @@ def _cvt_variable(v):
             v = v.get()
     return v
 
+def _draw_gender(img, gender, size=7, idx=0):
+    # Upper right
+    pt = (img.shape[1] - (size + 5) * (2 * idx + 1), size + 5)
+    if gender == 0:
+        _draw_circle(img, pt, (255, 0.3, 0.3), size, -1)  # male
+    elif gender == 1:
+        _draw_circle(img, pt, (0.3, 0.3, 255), size, -1)  # female
+
+def _draw_circle(img, pt, color, radius=4, thickness=-1):
+    pt = (int(pt[0]), int(pt[1]))
+    cv2.circle(img, pt, radius, color, int(thickness))
+
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='HyperFace training script')
   parser.add_argument('--config', '-c', default='config.json',
                       help='Load config from given json file')
   parser.add_argument('--model', required=True, help='Trained model path')
-  parser.add_argument('--video', required=True, help='Input video path')
+  parser.add_argument('--input', required=True, help='Input video path')
+  parser.add_argument('--output', required=True, help='Output video path')
   args = parser.parse_args()
 
 
   # Create a VideoCapture object and read from input file
   # If the input is the camera, pass 0 instead of the video file name
-  cap = cv2.VideoCapture(args.video)
+  cap = cv2.VideoCapture(args.input)
 
   # Check if camera opened successfully
   if (cap.isOpened()== False):
@@ -78,7 +91,7 @@ if __name__ == '__main__':
 
   fourcc = cv2.cv.CV_FOURCC(*'XVID')
   print(fourcc)
-  out = cv2.VideoWriter('./outputteste.avi',fourcc, 30.0, (frame_width,frame_height))
+  out = cv2.VideoWriter(args.output,fourcc, 30.0, (frame_width,frame_height))
   while success:
     success,image = cap.read()
 
@@ -87,6 +100,7 @@ if __name__ == '__main__':
     if (success):
       # Load image file
       img = image
+      img2 = image
       if img is None or img.size == 0 or img.shape[0] == 0 or img.shape[1] == 0:
           logger.error('Failed to load')
           exit()
@@ -127,7 +141,7 @@ if __name__ == '__main__':
 
       # Draw results
       drawing.draw_detection(img, detection)
-      landmark_color = (0, 1, 0) if detection == 1 else (0, 0, 1)
+      landmark_color = (0, 255, 0) if detection == 1 else (0, 0, 255)
       drawing.draw_landmark(img, landmark, visibility, landmark_color, 0.5)
       # Descobrir as outras poses o que querem dizer em relacao a cabeca.
       # pose[0] -> cabeca virada pros lados roll (rolando)
