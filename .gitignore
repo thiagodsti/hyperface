@@ -9,3 +9,4 @@ data
 *caffemodel
 *.avi
 model_epoch_190
+result_pretrain/*

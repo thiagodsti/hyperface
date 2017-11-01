@@ -26,18 +26,6 @@ def _cvt_variable(v):
             v = v.get()
     return v
 
-def _draw_gender(img, gender, size=7, idx=0):
-    # Upper right
-    pt = (img.shape[1] - (size + 5) * (2 * idx + 1), size + 5)
-    if gender == 0:
-        _draw_circle(img, pt, (255, 0.3, 0.3), size, -1)  # male
-    elif gender == 1:
-        _draw_circle(img, pt, (0.3, 0.3, 255), size, -1)  # female
-
-def _draw_circle(img, pt, color, radius=4, thickness=-1):
-    pt = (int(pt[0]), int(pt[1]))
-    cv2.circle(img, pt, radius, color, int(thickness))
-
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='HyperFace training script')
   parser.add_argument('--config', '-c', default='config.json',
@@ -164,11 +152,12 @@ if __name__ == '__main__':
       drawing.draw_pose(img, pose)
       drawing.draw_gender(img, gender)
 
-      drawing.draw_detection(img2, detection)
-      drawing.draw_landmark(img2, landmark, visibility, landmark_color, 0.5)
-      drawing.draw_pose(img2, pose)
-      drawing.draw_gender(img2, gender)
-      out.write(img2)
+      img2 = cv2.resize(img2, (640, 480))
+      #drawing.draw_detection(img2, detection)
+      #drawing.draw_landmark(img2, landmark, visibility, landmark_color, 0.5)
+      #drawing.draw_pose(img2, pose)
+      #drawing.draw_gender(img2, gender)
+      #out.write(img2)
       # Show image
       #logger.info('Show the result image')
       #cv2.imshow('result', img)
