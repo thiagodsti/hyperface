@@ -77,7 +77,7 @@ if __name__ == '__main__':
   print(frame_width)
   print(frame_height)
 
-  fourcc = cv2.cv.CV_FOURCC(*'XVID')
+  fourcc = cv2.VideoWriter_fourcc(*'XVID')
   print(fourcc)
   out = cv2.VideoWriter(args.output,fourcc, 30.0, (frame_width,frame_height))
   while success:
@@ -153,11 +153,11 @@ if __name__ == '__main__':
       drawing.draw_gender(img, gender)
 
       img2 = cv2.resize(img2, (640, 480))
-      #drawing.draw_detection(img2, detection)
-      #drawing.draw_landmark(img2, landmark, visibility, landmark_color, 0.5)
-      #drawing.draw_pose(img2, pose)
-      #drawing.draw_gender(img2, gender)
-      #out.write(img2)
+      drawing.draw_detection(img2, detection)
+      drawing.draw_landmark(img2, landmark, visibility, landmark_color, 0.5)
+      drawing.draw_pose(img2, pose)
+      drawing.draw_gender(img2, gender)
+      out.write(img2)
       # Show image
       #logger.info('Show the result image')
       #cv2.imshow('result', img)
