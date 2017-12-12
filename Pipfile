@@ -1,0 +1,23 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[dev-packages]
+
+pylint = "*"
+
+
+[packages]
+
+numpy = "==1.13.3"
+cupy = "==2.1.0.1"
+chainer = "==3.1.0"
+opencv-python = "==3.3.0.10"
+dlib = "==19.7.0"
+flask = "==0.12.2"
+python-socketio = "==1.8.4"
+flask-socketio = "==2.9.3"
+matplotlib = "==2.1.1"
