@@ -30,9 +30,8 @@ def _cvt_variable(v):
             v = v.get()
     return v
 
-
-if __name__ == '__main__':
-    # Argument
+def main():
+        # Argument
     parser = argparse.ArgumentParser(description='HyperFace training script')
     parser.add_argument('--config', '-c', default='config.json',
                         help='Load config from given json file')
@@ -78,11 +77,11 @@ if __name__ == '__main__':
 
     # Create single batch
     imgs = xp.asarray([img])
-    x = chainer.Variable(imgs, volatile=True)
-
-    # Forward
-    logger.info('Forward the network')
-    y = model(x)
+    x = chainer.Variable(imgs)
+    with chainer.no_backprop_mode():
+    	# Forward
+    	logger.info('Forward the network')
+    	y = model(x)
 
     # Chainer.Variable -> np.ndarray
     imgs = _cvt_variable(y['img'])
@@ -127,7 +126,7 @@ if __name__ == '__main__':
         print('Olhando para a direita')
     elif (pose[2]>=-limite and pose[2]<=limite):
         print('Olhando para frente')
-    print(pose);
+    print(pose)
     drawing.draw_pose(img, pose)
     drawing.draw_gender(img, gender)
 
@@ -135,3 +134,8 @@ if __name__ == '__main__':
     logger.info('Show the result image')
     cv2.imshow('result', img)
     cv2.waitKey(0)
+
+
+
+if __name__ == '__main__':
+    main()
