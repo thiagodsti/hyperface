@@ -15,6 +15,7 @@ try:
     import matplotlib.pyplot as plt
     import matplotlib.backends.backend_agg as agg
 except Exception as e:
+    print('error')
     logger.error('Failed to import matplotlib')
     logger.error('[%s] %s', str(type(e)), str(e.args))
     exit()

@@ -1,3 +1,5 @@
 {
-  "python.pythonPath": "${workspaceRoot}/local/bin/python"
+  "python.pythonPath": "${workspaceRoot}/local/bin/python",
+  "editor.tabSize": 2,
+  "python.linting.pylintEnabled": false
 }

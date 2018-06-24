@@ -17,7 +17,7 @@ IMG_SIZE = (227, 227)
 def _disconnect(x):
     variableX = chainer.Variable(x.data)
     with chainer.no_backprop_mode():    
-	return chainer.Variable(x.data)
+        return chainer.Variable(x.data)
 
 
 def copy_layers(src_model, dst_model,
@@ -79,23 +79,28 @@ class HyperFaceModel(chainer.Chain):
         # Fusion CNN
         h = F.relu(self.conv_all(h))  # conv_all
         h = F.relu(self.fc_full(h))  # fc_full
-	with chainer.using_config('train', self.train):
-        	h = F.dropout(h)
-        	h_detection = F.relu(self.fc_detection1(h))
-        	h_detection = F.dropout(h_detection)
-        	h_detection = self.fc_detection2(h_detection)
-        	h_landmark = F.relu(self.fc_landmarks1(h))
-        	h_landmark = F.dropout(h_landmark)
-        	h_landmark = self.fc_landmarks2(h_landmark)
-        	h_visibility = F.relu(self.fc_visibility1(h))
-        	h_visibility = F.dropout(h_visibility)
-        	h_visibility = self.fc_visibility2(h_visibility)
-        	h_pose = F.relu(self.fc_pose1(h))
-        	h_pose = F.dropout(h_pose)
-        	h_pose = self.fc_pose2(h_pose)
-        	h_gender = F.relu(self.fc_gender1(h))
-        	h_gender = F.dropout(h_gender)
-        	h_gender = self.fc_gender2(h_gender)
+        with chainer.using_config('train', self.train):
+            h = F.dropout(h)
+        h_detection = F.relu(self.fc_detection1(h))
+        with chainer.using_config('train', self.train):
+            h_detection = F.dropout(h_detection)
+        h_detection = self.fc_detection2(h_detection)
+        h_landmark = F.relu(self.fc_landmarks1(h))
+        with chainer.using_config('train', self.train):
+            h_landmark = F.dropout(h_landmark)
+        h_landmark = self.fc_landmarks2(h_landmark)
+        h_visibility = F.relu(self.fc_visibility1(h))
+        with chainer.using_config('train', self.train):
+            h_visibility = F.dropout(h_visibility)
+        h_visibility = self.fc_visibility2(h_visibility)
+        h_pose = F.relu(self.fc_pose1(h))
+        with chainer.using_config('train', self.train):
+            h_pose = F.dropout(h_pose)
+        h_pose = self.fc_pose2(h_pose)
+        h_gender = F.relu(self.fc_gender1(h))
+        with chainer.using_config('train', self.train):
+            h_gender = F.dropout(h_gender)
+        h_gender = self.fc_gender2(h_gender)
 
         # Mask and Loss
         if self.backward:
@@ -196,7 +201,7 @@ class RCNNFaceModel(chainer.Chain):
         h = F.relu(self.conv4(h))  # conv4
         h = F.relu(self.conv5(h))  # conv5
         h = F.max_pooling_2d(h, 3, stride=2, pad=0)  # pool5
-	with chainer.using_config('train', self.train):
+        with chainer.using_config('train', self.train):
         	h = F.dropout(F.relu(self.fc6(h)))  # fc6
         	h = F.dropout(F.relu(self.fc7(h)))  # fc7
         h_detection = self.fc8(h)  # fc8
